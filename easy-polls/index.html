@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarianSpace EasyPolls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-top">
+            <div class="brand">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>MarianSpace EasyPolls</span>
+            </div>
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="builder">Builder</button>
+                <button class="tab-btn" data-tab="responses">Responses</button>
+            </nav>
+        </div>
+        <div class="header-actions" id="builderActions">
+            <input type="text" id="formTitle" class="form-title" value="Untitled form" spellcheck="false">
+            <input type="text" id="formDesc" class="form-desc" value="Add a description" spellcheck="false">
+            <button class="btn" id="addQuestionBtn"><i class="fa-solid fa-plus"></i> Add question</button>
+            <button class="btn" id="exportFormBtn"><i class="fa-solid fa-file-export"></i> Export form HTML</button>
+            <button class="btn" id="newFormBtn"><i class="fa-solid fa-file"></i> New form</button>
+        </div>
+        <div class="header-actions hidden" id="responsesActions">
+            <button class="btn" id="importDatBtn"><i class="fa-solid fa-file-import"></i> Import .dat files</button>
+            <input type="file" id="datInput" accept=".dat,application/json" multiple hidden>
+            <button class="btn" id="clearResponsesBtn"><i class="fa-solid fa-trash"></i> Clear responses</button>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="tab-panel active" id="panel-builder">
+            <div class="builder-container">
+                <div class="questions-list" id="questionsList"></div>
+            </div>
+        </section>
+
+        <section class="tab-panel" id="panel-responses">
+            <div class="responses-container">
+                <div class="responses-header">
+                    <div>
+                        <h2 id="responsesFormTitle">No form loaded</h2>
+                        <p class="muted">Import .dat response files to view results</p>
+                    </div>
+                    <div class="responses-meta">
+                        <span id="responseCount">0 responses</span>
+                    </div>
+                </div>
+                <div class="responses-list" id="responsesList"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <template id="questionTemplate">
+        <div class="question-card" data-id="">
+            <div class="question-header">
+                <input type="text" class="question-title" placeholder="Question title" spellcheck="false">
+                <select class="question-type">
+                    <option value="short">Short answer</option>
+                    <option value="paragraph">Paragraph</option>
+                    <option value="multiple">Multiple choice</option>
+                    <option value="checkboxes">Checkboxes</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="scale">Linear scale (1-5)</option>
+                </select>
+                <button class="icon-btn move-up" title="Move up"><i class="fa-solid fa-arrow-up"></i></button>
+                <button class="icon-btn move-down" title="Move down"><i class="fa-solid fa-arrow-down"></i></button>
+                <button class="icon-btn delete" title="Delete question"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <div class="options-section hidden">
+                <div class="options-list"></div>
+                <button class="text-btn add-option"><i class="fa-solid fa-plus"></i> Add option</button>
+            </div>
+            <div class="scale-section hidden">
+                <div class="scale-row">
+                    <label>Min <input type="number" class="scale-min" value="1" min="0"></label>
+                    <label>Max <input type="number" class="scale-max" value="5" min="1"></label>
+                    <label>Min label <input type="text" class="scale-min-label" placeholder="e.g., Poor"></label>
+                    <label>Max label <input type="text" class="scale-max-label" placeholder="e.g., Excellent"></label>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="optionTemplate">
+        <div class="option-row">
+            <i class="fa-solid fa-grip-vertical"></i>
+            <input type="text" class="option-input" placeholder="Option" spellcheck="false">
+            <button class="icon-btn remove-option" title="Remove option"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
