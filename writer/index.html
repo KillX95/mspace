@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarianSpace Writer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fa-solid fa-file-pen"></i>
+                <span class="logo-text">MarianSpace Writer</span>
+            </div>
+            <input type="text" id="docTitle" class="doc-title" value="Untitled document" spellcheck="false">
+            <div class="header-actions">
+                <button class="btn" id="saveBtn" title="Save to browser">
+                    <i class="fa-solid fa-floppy-disk"></i> Save
+                </button>
+                <button class="btn" id="loadBtn" title="Load from browser">
+                    <i class="fa-solid fa-database"></i> Load (local)
+                </button>
+                <button class="btn" id="openFileBtn" title="Open a file from your computer">
+                    <i class="fa-solid fa-folder-open"></i> Open file
+                </button>
+                <input type="file" id="fileInput" accept=".html,.htm,.txt,.md,text/html,text/plain,text/markdown" hidden>
+                <button class="btn" id="clearBtn" title="New document">
+                    <i class="fa-solid fa-file"></i> New
+                </button>
+                <button class="btn" id="printBtn" title="Print / Export to PDF">
+                    <i class="fa-solid fa-print"></i> Print
+                </button>
+                <button class="btn" id="downloadBtn" title="Download as HTML">
+                    <i class="fa-solid fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button class="tool-btn" data-cmd="undo" title="Undo (Ctrl+Z)">
+                <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button class="tool-btn" data-cmd="redo" title="Redo (Ctrl+Y)">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+            <select id="formatBlock" class="select" title="Paragraph style">
+                <option value="p">Normal</option>
+                <option value="h1">Heading 1</option>
+                <option value="h2">Heading 2</option>
+                <option value="h3">Heading 3</option>
+                <option value="h4">Heading 4</option>
+                <option value="blockquote">Quote</option>
+            </select>
+            <select id="fontName" class="select" title="Font">
+                <option value="Inter">Inter</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Helvetica, sans-serif">Helvetica</option>
+                <option value="Roboto">Roboto</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Times New Roman, serif">Times New Roman</option>
+                <option value="Source Code Pro, monospace">Code</option>
+            </select>
+            <select id="fontSize" class="select" title="Size">
+                <option value="1">8pt</option>
+                <option value="2">10pt</option>
+                <option value="3" selected>12pt</option>
+                <option value="4">14pt</option>
+                <option value="5">18pt</option>
+                <option value="6">24pt</option>
+                <option value="7">36pt</option>
+            </select>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+            <button class="tool-btn" data-cmd="bold" title="Bold (Ctrl+B)">
+                <i class="fa-solid fa-bold"></i>
+            </button>
+            <button class="tool-btn" data-cmd="italic" title="Italic (Ctrl+I)">
+                <i class="fa-solid fa-italic"></i>
+            </button>
+            <button class="tool-btn" data-cmd="underline" title="Underline (Ctrl+U)">
+                <i class="fa-solid fa-underline"></i>
+            </button>
+            <button class="tool-btn" data-cmd="strikeThrough" title="Strikethrough">
+                <i class="fa-solid fa-strikethrough"></i>
+            </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+            <button class="tool-btn" data-cmd="justifyLeft" title="Align left">
+                <i class="fa-solid fa-align-left"></i>
+            </button>
+            <button class="tool-btn" data-cmd="justifyCenter" title="Align center">
+                <i class="fa-solid fa-align-center"></i>
+            </button>
+            <button class="tool-btn" data-cmd="justifyRight" title="Align right">
+                <i class="fa-solid fa-align-right"></i>
+            </button>
+            <button class="tool-btn" data-cmd="justifyFull" title="Justify">
+                <i class="fa-solid fa-align-justify"></i>
+            </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+            <button class="tool-btn" data-cmd="insertUnorderedList" title="Bulleted list">
+                <i class="fa-solid fa-list-ul"></i>
+            </button>
+            <button class="tool-btn" data-cmd="insertOrderedList" title="Numbered list">
+                <i class="fa-solid fa-list-ol"></i>
+            </button>
+            <button class="tool-btn" data-cmd="indent" title="Increase indent">
+                <i class="fa-solid fa-indent"></i>
+            </button>
+            <button class="tool-btn" data-cmd="outdent" title="Decrease indent">
+                <i class="fa-solid fa-outdent"></i>
+            </button>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-group">
+            <button class="tool-btn" data-cmd="createLink" title="Insert link">
+                <i class="fa-solid fa-link"></i>
+            </button>
+            <button class="tool-btn" data-cmd="unlink" title="Remove link">
+                <i class="fa-solid fa-link-slash"></i>
+            </button>
+            <button class="tool-btn" data-cmd="removeFormat" title="Clear formatting">
+                <i class="fa-solid fa-eraser"></i>
+            </button>
+        </div>
+    </div>
+
+    <main class="editor-container">
+        <div class="page">
+            <div id="editor" class="editor" contenteditable="true" spellcheck="true" data-placeholder="Start writing..."></div>
+        </div>
+    </main>
+
+    <footer class="status-bar">
+        <div class="status-left">
+            <span id="wordCount">0 words</span> • <span id="charCount">0 characters</span>
+        </div>
+        <div class="status-right">
+            <span>MarianSpace Writer</span>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
